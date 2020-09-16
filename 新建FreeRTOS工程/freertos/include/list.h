@@ -10,6 +10,14 @@ struct xLIST_ITEM
 };
 typedef struct xLIST_ITEM ListItem_t;	/* 节点数据类型重定义 */
 
+struct xMINI_LIST_ITEM
+{
+	TickType_t xItemValue;
+	struct xLIST_ITEM	*pxNext;
+	struct xLIST_ITEM	*pxPrevious;
+};
+typedef struct xMINI_LIST_ITEM MiniListItem_t;	/* 最小节点数据类型重定义 */
+
 /* 链表结构体定义 */
 typedef struct xLSIT
 {
