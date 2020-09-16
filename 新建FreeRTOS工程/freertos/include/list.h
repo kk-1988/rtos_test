@@ -10,3 +10,10 @@ struct xLIST_ITEM
 };
 typedef struct xLIST_ITEM ListItem_t;	/* 节点数据类型重定义 */
 
+/* 链表结构体定义 */
+typedef struct xLSIT
+{
+	UBaseType_t uxNumberOfItems;	/* 链表节点计数器 */
+	ListItem_t * pxIndex;					/* 链表节点索引指针 */
+	MiniListItem_t xListEnd;			/* 链表最后一个节点 */
+}List_t;
