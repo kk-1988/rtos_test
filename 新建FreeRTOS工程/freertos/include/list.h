@@ -1,5 +1,6 @@
 #include "FreeRTOS.h"
 
+/* 节点结构体定义 */
 struct xLIST_ITEM
 {
 	TickType_t xItemValue;	/* 辅助值,用于帮助节点做顺序排列 */
@@ -10,11 +11,14 @@ struct xLIST_ITEM
 };
 typedef struct xLIST_ITEM ListItem_t;	/* 节点数据类型重定义 */
 
+/* mini节点结构体定义，作为双向链表的结尾
+*  因为双向链表是首尾相连的，头即是尾，尾即是头
+* */
 struct xMINI_LIST_ITEM
 {
-	TickType_t xItemValue;
-	struct xLIST_ITEM	*pxNext;
-	struct xLIST_ITEM	*pxPrevious;
+	TickType_t xItemValue;              /* 辅助值,用于帮助节点做升序排列 */
+	struct xLIST_ITEM	*pxNext;        /* 指向链表下一个节点 */
+	struct xLIST_ITEM	*pxPrevious;    /* 指向链表前一个节点 */
 };
 typedef struct xMINI_LIST_ITEM MiniListItem_t;	/* 最小节点数据类型重定义 */
 
