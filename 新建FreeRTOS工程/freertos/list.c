@@ -9,8 +9,11 @@ void VListInitialise(List_t * const pxList)
 	pxList->xListEnd.xItemValue = portMAX_DELAY;
 	
 	/* 将pxNext和pxPrevious指针都指向其自身,表示链表为空 */
+    pxList->xListEnd.pxNext = ( ListItem_t * )&(pxList->xListEnd);
+    pxList->xListEnd.pxPrevious = (ListItem_t *)&(pxList->xListEnd);
 	
-	
+    /* 初始化链表节点计数器的值为0，表示链表为空 */
+    pxList->uxNumberOfItems = (UBaseType_t) 0U;
 }
 
 /* 节点初始化 */
