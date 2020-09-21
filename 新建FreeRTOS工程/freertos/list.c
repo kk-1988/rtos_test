@@ -23,7 +23,7 @@ void vListInitialiseItem(ListItem_t * const pxItem)
 	pxItem->pvContainer = NULL;
 }
 
-/* 插入链表节点 */
+/* 插入链表节点到末尾 */
 void vListInsertEnd()
 {
 		
