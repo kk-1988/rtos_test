@@ -1,7 +1,7 @@
 #include "list.h"
 
 /* 链表根节点初始化 */
-void VListInitialise(List_t * const pxList)
+void vListInitialise(List_t * const pxList)
 {
 	/* 将链表索引指针指向最后一个节点 */
 	pxList->pxIndex = (ListItem_t *)&(pxList->xListEnd);
