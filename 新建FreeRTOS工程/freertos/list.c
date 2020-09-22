@@ -30,8 +30,8 @@ void vListInsertEnd( List_t *const pxList, ListItem_t * const pxNewListeItem)
 		
 		pxNewListItem->pxNext = pxIndex;		//新节点的下一个节点就是end节点本身
 		pxNewListItem->pxPrevious = pxIndex->pxPrevious;	//新节点的上一个节点就是原本end节点的上一个节点
-		pxIndex->pxOrevious->pxNext = pxNewListItem;	//
-		pxIndex->pxPrevious = pxNewListItem;
+		pxIndex->pxOrevious->pxNext = pxNewListItem;	//end上一个节点的下一个指向新节点
+		pxIndex->pxPrevious = pxNewListItem;	//end上一个节点指向新节点
 		
 		/* 记住该节点所在的链表 */
 		pxNewListItem->pvContainer = (void *) pxList;
