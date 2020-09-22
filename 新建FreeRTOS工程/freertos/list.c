@@ -24,7 +24,18 @@ void vListInitialiseItem(ListItem_t * const pxItem)
 }
 
 /* 插入链表节点到末尾 */
-void vListInsertEnd()
+void vListInsertEnd( List_t *const pxList, ListItem_t * const pxNewListeItem)
 {
+		ListItem_t * const pxIndex = pxList->pxIndex;		//end
 		
+		pxNewListItem->pxNext = pxIndex;
+		pxNewListItem->pxPrevious = pxIndex->pxPrevious;
+		pxIndex->pxOrevious->pxNext = pxNewListItem;
+		pxIndex->pxPrevious = pxNewListItem;
+		
+		/* 记住该节点所在的链表 */
+		pxNewListItem->pvContainer = (void *) pxList;
+		
+		/* 链表节点计数器++ */
+		( pxList->uxNumberOfItems )++;
 }
