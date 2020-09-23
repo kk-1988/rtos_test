@@ -39,3 +39,8 @@ void vListInsertEnd( List_t *const pxList, ListItem_t * const pxNewListeItem)
 		/* 链表节点计数器++ */
 		( pxList->uxNumberOfItems )++;
 }
+
+void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
+{
+	
+}
