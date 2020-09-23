@@ -42,5 +42,5 @@ void vListInsertEnd( List_t *const pxList, ListItem_t * const pxNewListeItem)
 
 void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
 {
-	
+		ListItem_t *pxIterator;
 }
