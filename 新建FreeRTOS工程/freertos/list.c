@@ -43,4 +43,18 @@ void vListInsertEnd( List_t *const pxList, ListItem_t * const pxNewListeItem)
 void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
 {
 		ListItem_t *pxIterator;
+		
+		/* 获取节点的排序辅助值 */
+		const TickType_t xValueOfInsertion = pxNewListItem->xItemValue;
+		
+		/* 寻找节点要插入的位置 */
+		if( xValueOfInsertion == portMAX_DELAY )
+		{
+			pxIterator = pxList->xListEnd.pxPrevious;	
+		}	
+		else
+		{
+				
+		}
+		
 }
