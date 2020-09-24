@@ -62,5 +62,15 @@ void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
 				}	
 		}
 		
-				
+		pxNewListItem->pxNext = pxIterator->pxNext;
+		pxNewListItem->pxNext->pxPrevious = pxNewListItem;
+		pxNewListItem->pxPrevious = pxIterator;
+		pxIterator->pxNext = pxNewListItem;
+		
+		/* 记住该节点所在的链表 */
+		pxNewListItem->pvContainer = (void *)pxList;		
+		
+		/* 链表节点计数器++ */
+	  ( pxList->uxNumberOfItems )++;
 }
+
