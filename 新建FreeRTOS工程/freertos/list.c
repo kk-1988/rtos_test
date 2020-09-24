@@ -54,7 +54,13 @@ void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
 		}	
 		else
 		{
-				
+			for( pxIterator = ( ListItem_t * ) &(pxList->xListEnd );
+					 pxIterator->pxNext->xItemValue <= xValueOfInsertion;
+					 pxIterator = pxIterator->pxNext )
+				{
+					/* 没有事情可做，不断迭代只为了找到节点要插入的位置*/	
+				}	
 		}
 		
+				
 }
