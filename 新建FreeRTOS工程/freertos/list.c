@@ -74,3 +74,21 @@ void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
 	  ( pxList->uxNumberOfItems )++;
 }
 
+/* 移除某个节点 */
+UBaseType_t uxListRemove(ListItem_t * const pxItemToRemove)
+{
+	/* 获取节点所在的链表 */
+	List_t * const pxList = ( List_t *) pxItemToRemove->pvContainer;
+	
+	pxItemToRemove->pxNext->pxPrevious = pxItemToRemove->pxPrevious;
+	pxItemToRemove->pxPrevious->pxNext = pxItemToRemove->pxNext;
+	
+	/* Make sure the index is left pointing to a valid item .*/
+	if( pxLit->pxIndex == pxItemToRemove )
+	{
+		pxList->pxIndex = pxItemToRemove->pxPrevious;		
+	}
+	
+	
+}
+
