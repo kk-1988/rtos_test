@@ -89,6 +89,13 @@ UBaseType_t uxListRemove(ListItem_t * const pxItemToRemove)
 		pxList->pxIndex = pxItemToRemove->pxPrevious;		
 	}
 	
+	/* 初始化该节点所在的链表为空，表示节点还没有插入到任何链表中 */
+	pxItemToRemove->pvContainer = NULL;
 	
+	/* 链表节点计数器-- */
+ ( pxList->uxNumberOfItems )--;
+ 
+ /* 返回链表中剩余节点的个数 */
+ return pxList->uxNumberOfItems;
 }
 
