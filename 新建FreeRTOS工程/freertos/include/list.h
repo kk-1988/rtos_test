@@ -29,3 +29,7 @@ typedef struct xLSIT
 	ListItem_t * pxIndex;					/* 链表节点索引指针 */
 	MiniListItem_t xListEnd;			/* 链表最后一个节点 */
 }List_t;
+
+void vListInitialise(List_t * const pxList);
+void vListInitialiseItem(ListItem_t * const pxItem);
+void vListInsert(List * const pxList, ListItem_t * const pxNewListItem);
