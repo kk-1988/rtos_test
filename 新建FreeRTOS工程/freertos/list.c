@@ -40,6 +40,7 @@ void vListInsertEnd( List_t *const pxList, ListItem_t * const pxNewListeItem)
 		( pxList->uxNumberOfItems )++;
 }
 
+/* 升序插入 */
 void vListInsert(List * const pxList, ListItem_t * const pxNewListItem)
 {
 		ListItem_t *pxIterator;
@@ -98,4 +99,5 @@ UBaseType_t uxListRemove(ListItem_t * const pxItemToRemove)
  /* 返回链表中剩余节点的个数 */
  return pxList->uxNumberOfItems;
 }
+
 
