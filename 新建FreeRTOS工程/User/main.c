@@ -15,6 +15,13 @@ int main(void)
 	
 	/* 插入 */
 	vListInsert(&list, &node1);
+	vListInsert(&list, &node2);
+	vListInsert(&list, &node3);
+	
+	for(;;)
+	{
+		/* 啥事都不干 */	
+	}
 	
 	return 0;
 }
