@@ -30,6 +30,15 @@ typedef struct xLSIT
 	MiniListItem_t xListEnd;			/* 链表最后一个节点 */
 }List_t;
 
+/* 获取链表的入口节点 */
+#define listGET_HEAD_ENTRY( pxList )  ( ( (pxList)->xListEnd ).pxNext )
+
+/* 获取链表的抵押给节点 */
+#define listGET_NEXT( pxListItem ) ( (pxListItem )->pxNext )
+
+/* 获取链表的最后一个节点 */
+#define 
+
 void vListInitialise(List_t * const pxList);
 void vListInitialiseItem(ListItem_t * const pxItem);
 void vListInsert(List * const pxList, ListItem_t * const pxNewListItem);
