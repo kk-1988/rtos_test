@@ -30,6 +30,18 @@ typedef struct xLSIT
 	MiniListItem_t xListEnd;			/* 链表最后一个节点 */
 }List_t;
 
+/* 初始化节点的拥有者 */
+#define listSET_LIST_ITEM_OWNER( pxListIte, pxOwner )	( ( pxListItem )->pvOwner = ( void * ) ( pxOwner ) )
+
+/* 获取节点拥有者 */
+#define listGET_LIST_ITEM_OWNER( pxListItem ) ( ( pxListItem )->pvOwner )
+
+/* 初始化节点排序辅助值 */
+#define listSET_LIST_ITEM_VALUE( pxListItem, xValue ) ( ( pxListItem )->xItemValue = ( xValue ) )
+
+/* 获取链表根节点的节点计数器的值 */
+#define listGET_ITEM_VALUE_OF_HEAD_ENTRY( pxList ) ( ( ( pxList )->xListEnd ).pxNext->xItemValue )
+
 /* 获取链表的入口节点 */
 #define listGET_HEAD_ENTRY( pxList )  ( ( (pxList)->xListEnd ).pxNext )
 
