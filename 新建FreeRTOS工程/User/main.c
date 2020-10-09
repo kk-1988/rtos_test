@@ -45,6 +45,10 @@ void Task1_Entry(void *p_arg)
 	while(1)
 	{
 		//todo
+		flag1 = 1;
+		delay(100);
+		flag1 = 0;
+		delay(100);
 	}
 }
 
@@ -54,5 +58,9 @@ void Task2_Entry(void *p_arg)
 	while(1)
 	{
 		//todo
+		flag2 = 1;
+		delay(100);
+		flag2 = 0;
+		delay(100);
 	}
 }
