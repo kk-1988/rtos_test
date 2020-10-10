@@ -1,4 +1,5 @@
 #include "list.h"
+#include "portmacro.h"
 
 /*
 * 全局
@@ -10,7 +11,7 @@ portCHAR flag2;
 //TaskHandle_t Task1_Handle;
 #define TASK1_STACK_SIZE	20
 StackType_t Task1Stack[TASK1_STACK_SIZE];
-//TCB_t Task1TCB;		//任务控制块1
+//TCB_t Task1TCB;		//任务控制块1(包括任务的栈指针，任务名称，任务的形参等)
 
 //TaskHandle_t Task2_Handle;
 #define TASK2_STACK_SIZE	20
@@ -20,7 +21,6 @@ StackType_t Task2Stack[TASK2_STACK_SIZE];
 //定义一个任务函数
 void Task1_Entry(void *p_arg);
 void Task2_Entry(void *p_arg);
-
 
 int main(void)
 {
