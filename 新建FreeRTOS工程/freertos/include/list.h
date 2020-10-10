@@ -1,3 +1,6 @@
+#ifndef LIST_H
+#define LIST_H
+
 #include "FreeRTOS.h"
 
 /* 节点结构体定义 */
@@ -75,3 +78,5 @@ typedef struct xLSIT
 void vListInitialise(List_t * const pxList);
 void vListInitialiseItem(ListItem_t * const pxItem);
 void vListInsert(List * const pxList, ListItem_t * const pxNewListItem);
+
+#endif		/* LIST_H */
