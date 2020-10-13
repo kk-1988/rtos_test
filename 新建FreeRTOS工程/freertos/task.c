@@ -28,8 +28,7 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,		/* 任务入口 */
 	}
 	else
 	{
-		
-		
+		xReturn = NULL;		
 	}
 	
 }							
