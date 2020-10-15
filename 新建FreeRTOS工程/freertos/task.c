@@ -39,7 +39,7 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,		/* 任务入口 */
 /*
 * 初始化新任务接口
 */
-static void prvInitialliseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
+static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 								const char * const pcName,		/* 任务名称，字符串形式 */
 								const uint32_t ulStackDepth,	/* 任务栈大小，单位为字 */
 								void * const pvParameters,		/* 任务形参 */
