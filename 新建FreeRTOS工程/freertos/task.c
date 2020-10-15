@@ -31,4 +31,17 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,		/* 任务入口 */
 		xReturn = NULL;		
 	}
 	
+	/* 返回任务句柄，如果任务创建成功，此时xReturn应该指向任务控制块 */
+	
+	
 }							
+
+/*
+* 初始化新任务接口
+*/
+static void prvInitialliseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
+								const char * const pcName,		/* 任务名称，字符串形式 */
+								const uint32_t ulStackDepth,	/* 任务栈大小，单位为字 */
+								void * const pvParameters,		/* 任务形参 */
+								TaskHandle_t * const pxCreatedTask,	/* 任务句柄 */
+								TCB_t *pxNewTCB )				/* 任务控制块指针 */
