@@ -52,6 +52,10 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 								TaskHandle_t * const pxCreatedTask,	/* 任务句柄 */
 								TCB_t *pxNewTCB )				/* 任务控制块指针 */
 {
+	StackType_t *pxTopOfStack;
+	UBaseType_t x;
 	
+	/* 获取栈顶指针 */
+	pxTopOfStack = pxNewTCB->pxStack + ( ulStackDepth - ( uint32_t ) 1 );
 	
 }
