@@ -73,4 +73,12 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 	
 	/* 任务名字的长度不能超过configMAX_TASK_NAME_LEN */
 	pxNewTCB->pcTaskName[ configMAX_TASK_NAME_LEN - 1 ] = '\0';
+	
+	/* 初始化TCB中的xStateListItem节点 */
+	vListInitialiseItem( &( pxNewTCB->xStateListItem ));
+	/* 设置xStateListItem节点的拥有者 */
+	listSET_LIST_ITEM_OWNER( &( pxNewTCB->xStateListItem ), pxNewTCB ); 
+	
+	/* 初始化任务栈 */
+	
 }
