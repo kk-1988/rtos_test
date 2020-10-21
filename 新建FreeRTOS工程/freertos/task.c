@@ -72,5 +72,5 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 	}
 	
 	/* 任务名字的长度不能超过configMAX_TASK_NAME_LEN */
-	
+	pxNewTCB->pcTaskName[ configMAX_TASK_NAME_LEN - 1 ] = '\0';
 }
