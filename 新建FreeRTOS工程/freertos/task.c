@@ -80,5 +80,11 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 	listSET_LIST_ITEM_OWNER( &( pxNewTCB->xStateListItem ), pxNewTCB ); 
 	
 	/* 初始化任务栈 */
+	pxNewTCB->pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters );
 	
+	/* 让任务句柄指向任务控制块 */
+	if( ( void * )pxCreatedTask != NULL)
+	{
+		*pxCreatedTask = ( TaskHandle_t ) pxNewTCB;
+	}
 }
