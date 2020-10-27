@@ -1,5 +1,6 @@
 #include "list.h"
 #include "portmacro.h"
+#include "task.h"
 
 /*
 * È«¾Ö
