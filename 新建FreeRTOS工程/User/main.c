@@ -31,8 +31,12 @@ void Task2_Entry(void *p_arg);
 
 int main(void)
 {
-	xTaskCreateStatic(Task1_Entry, "Task1_Entry", TASK1_STACK_SIZE, NULL, &Task1_Handle);
-	
+	Task1_Handle = xTaskCreateStatic(Task1_Entry, 
+									  "Task1_Entry", 
+									  TASK1_STACK_SIZE, 
+									  NULL,
+									  Task1Stack,		/* 任务栈起始地址 */
+									  &Task1TCB);
 	
 	for(;;)
 	{
