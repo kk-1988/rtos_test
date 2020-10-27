@@ -33,7 +33,7 @@ int main(void)
 {
 	//创建任务1
 	Task1_Handle = xTaskCreateStatic(Task1_Entry, 
-									  "Task1_Entry", 
+									  "Task1", 
 									  TASK1_STACK_SIZE, 
 									  NULL,
 									  Task1Stack,		/* 任务栈起始地址 */
@@ -41,7 +41,7 @@ int main(void)
 									  
 	//创建任务2						
 	Task2_Handle = xTaskCreateStatic(Task2_Entry, 
-									  "Task2_Entry", 
+									  "Task2", 
 									  TASK2_STACK_SIZE, 
 									  NULL,
 									  Task2Stack,		/* 任务栈起始地址 */
