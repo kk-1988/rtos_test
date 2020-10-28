@@ -1,5 +1,13 @@
 #include "task.h"
 
+/* 任务就绪列表 */
+List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
+
+/*
+**************************************************
+*					函数声明
+**************************************************
+*/
 static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 								const char * const pcName,		/* 任务名称，字符串形式 */
 								const uint32_t ulStackDepth,	/* 任务栈大小，单位为字 */
@@ -38,6 +46,7 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,		/* 任务入口 */
 	}
 	
 	/* 返回任务句柄，如果任务创建成功，此时xReturn应该指向任务控制块 */
+	
 	
 	
 }							
@@ -88,3 +97,21 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 		*pxCreatedTask = ( TaskHandle_t ) pxNewTCB;
 	}
 }
+
+/*
+* 就绪列表初始化
+*/
+void prvInitialiseTaskLists( void )
+{
+	UbaseType_t uxPriority;
+	
+	for( uxPriority = ( UBaseType_t ) 0U; uxPriority < ( UBaseType_t )configMAX_PRIORITIES; uxPriority++)
+	{
+		vListInitialise( &( pxReadyTasksLists[ uxPriority ] ));
+	}
+}
+
+/*
+* 节点插入到就绪列表，核心函数是：vListInsert
+*/
+
