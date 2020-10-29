@@ -110,8 +110,3 @@ void prvInitialiseTaskLists( void )
 		vListInitialise( &( pxReadyTasksLists[ uxPriority ] ));
 	}
 }
-
-/*
-* 节点插入到就绪列表，核心函数是：vListInsert
-*/
-

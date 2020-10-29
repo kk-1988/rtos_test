@@ -29,6 +29,8 @@ void delay (uint32_t count);
 void Task1_Entry(void *p_arg);
 void Task2_Entry(void *p_arg);
 
+extern List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
+
 int main(void)
 {
 	//创建任务1
@@ -38,6 +40,8 @@ int main(void)
 									  NULL,
 									  Task1Stack,		/* 任务栈起始地址 */
 									  &Task1TCB);
+	//核心函数是vListInsert，将任务控制块的列表项插入就绪列表中  
+	vListInsert(&pxReadyTasksLists[1], &Task1TCB.xStateListItem);								  
 									  
 	//创建任务2						
 	Task2_Handle = xTaskCreateStatic(Task2_Entry, 
@@ -46,6 +50,7 @@ int main(void)
 									  NULL,
 									  Task2Stack,		/* 任务栈起始地址 */
 									  &Task2TCB);								  
+	vListInsert(&pxReadyTasksLists[2], &Task2TCB.xStateListItem);
 	
 	for(;;)
 	{
