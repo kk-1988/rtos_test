@@ -33,6 +33,8 @@ extern List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
 
 int main(void)
 {
+	prvInitialiseTaskLists();	
+	
 	//创建任务1
 	Task1_Handle = xTaskCreateStatic(Task1_Entry, 
 									  "Task1", 
