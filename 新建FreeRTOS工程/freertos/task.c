@@ -3,6 +3,8 @@
 /* 任务就绪列表 */
 List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
 
+TCB_t * volatile pxCurrentTCB = NULL;
+
 /*
 **************************************************
 *					函数声明
@@ -109,4 +111,23 @@ void prvInitialiseTaskLists( void )
 	{
 		vListInitialise( &( pxReadyTasksLists[ uxPriority ] ));
 	}
+}
+
+extern TCB_t Task1TCB;
+extern TCB_t Task2TCB;
+void vTaskStartScheduler( void )
+{
+	/* 手动指定第一个运行的任务，
+	 * pxCurrentTCB为一个全局变量,
+	 * 指向当前运行的任务。
+	 */
+	pxCurrentTCB = &Task1TCB;
+	
+	/* 启动调度器 */
+	if( xPortStartScheduler() != pdFALSE )
+	{
+		/* 调度器启动成功，则不会返回，即不会来到这里 */
+			
+	}
+	
 }

@@ -29,3 +29,19 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	/* 返回栈顶指针，此时pxTopOfStack指向空闲栈 */
 	return pxTopOfStack;
 }
+
+/*
+* 		调度器启动函数
+*/
+BaseType_t xPortStartScheduler( void )
+{
+	/* 配置PendSV和SysTick的中断优先级最低 */
+	portNVIC_SYSPRI2_REG |= portNVIC_PENDSV_PRI;
+	portNVIC_SYSPRI2_REG |= PORTNVIC_YSSTICK_PRI;
+	
+	/* 启动第一个任务，不再返回 */
+	prvStartFirstTask();
+	
+	/* 不应该运行到这里 */
+	return 0; 	
+}
