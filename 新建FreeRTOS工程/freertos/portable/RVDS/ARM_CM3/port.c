@@ -1,4 +1,12 @@
+#include "FreeRTOS.h"
+#include "task.h"
+#include "ARMCM3.h"
 
+
+/*
+* 参考资料《STM32F10XX Cortex-M3 programming manual》4.4.3
+* 
+*/
 
 /*
 *************************************************************
