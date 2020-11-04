@@ -4,9 +4,26 @@
 
 
 /*
-* 参考资料《STM32F10XX Cortex-M3 programming manual》4.4.3
-* 
+* 参考资料《STM32F10XX Cortex-M3 programming manual》4.4.3，百度搜索“PM056”即可找到这个文档
+* 在Cortex-M中，内核外设SCB中SHPR3寄存器用于设置SysTick和PendSV的异常优先级
+* System handler priority register 3 (SCB_SHPR3) SCB_SHPR3: 0xE000 ED20
+* Bits 31:24 PRI_15[7:0]:Priority of system handler 15,SysTick exception
+* Bits 23:16 PRI_14[7:0]:Priority of system handler 14,PendSV 
+*
 */
+#define portNVIC_SYSPRI2_REG		( * ( ( volatile uint32_t * ) 0xe000ed20))
+
+#define portNVIC_PENDSV_PRI			( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 16ul )
+#define portNVIC_SYSTICK_PRI	 	( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 24ul )
+
+/*
+*************************************************************
+*												函数声明
+*************************************************************
+*/
+void prvStartFirstTask( void );
+void xPortSVCHandler( void );
+void xPortPendSVHandler( void );
 
 /*
 *************************************************************
