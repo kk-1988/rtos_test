@@ -70,3 +70,33 @@ BaseType_t xPortStartScheduler( void )
 	/* 不应该运行到这里 */
 	return 0; 	
 }
+
+/*
+*  参考资料《STM32F10XX Cortex-M3 programming manual》4.4.3，百度搜索“PM056”即可找到这个文档
+*  在Cortex-M中，内核外设SCB的地址范围为：0xE000ED000-0xE000ED3F
+*  0xE000ED008为SCB外设中SCB_VTOR这个寄存器的地址，里面存放的是向量表的起始地址，即MSP的地址
+*/
+__asm prvStartFirstTask( void )
+{
+	PRESERVE8
+	/*
+	* 在Cortex-M中，0xE000ED08是SCB_VTRO这个寄存器的地址，
+			里面存放的是向量表的起始地址，即MSP的地址 */
+			ldr r0, = 0xE000ED08
+			ldr r0, [r0]
+			ldr r0, [r0]
+			
+			/* 设置主堆栈指针msp的值 */
+			msr msp, r0
+			
+			/* 使能全局中断 */
+			cpsie i
+			cpsie f
+			dsb
+			isb
+			
+			/* 调用SVC去启动第一个任务 */
+			svc 0
+			nop
+			nop
+}	
