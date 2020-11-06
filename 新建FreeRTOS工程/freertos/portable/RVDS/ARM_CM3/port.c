@@ -87,7 +87,7 @@ __asm prvStartFirstTask( void )
 			ldr r0, [r0]
 			
 			/* 设置主堆栈指针msp的值 */
-			msr msp, r0
+			msr msp, r0		/* 主栈的栈顶指针 */
 			
 			/* 使能全局中断 */
 			cpsie i
