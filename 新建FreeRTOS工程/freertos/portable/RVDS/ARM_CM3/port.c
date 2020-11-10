@@ -100,3 +100,16 @@ __asm prvStartFirstTask( void )
 			nop
 			nop
 }	
+
+__asm void xPortPendSVHandler( void )
+{
+	extern pxCurrentTCB;
+	extern vTaskSwitchContext;
+	
+	PRESERVE8
+	
+	/*
+	* 当进入PendSVC Handler时，上一个任务运行的环境即：
+	* 
+	*/	
+}
