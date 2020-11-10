@@ -78,6 +78,7 @@ void Task1_Entry(void *p_arg)
 		delay(100);
 		flag1 = 0;
 		delay(100);
+		taskYIELD();
 	}
 }
 
@@ -91,5 +92,6 @@ void Task2_Entry(void *p_arg)
 		delay(100);
 		flag2 = 0;
 		delay(100);
+		taskYIELD();
 	}
 }
