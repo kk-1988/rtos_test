@@ -110,6 +110,13 @@ __asm void xPortPendSVHandler( void )
 	
 	/*
 	* 当进入PendSVC Handler时，上一个任务运行的环境即：
+	* xPSR,PC(任务入口地址)，R14,R12,R3,R2,R0(任务的形参)
+	* 这些CPU寄存器的值会自动保存到任务的栈中，剩下的R4-R11需要手动保存 
 	* 
-	*/	
+	*/
+	/* 获取任务栈指针到r0 */
+	mrs r0, psp
+	isb
+	
+	ldr r3, = pxCurrentTCB	/* 加载oxCurrentTCB的地址到r3 */	
 }
