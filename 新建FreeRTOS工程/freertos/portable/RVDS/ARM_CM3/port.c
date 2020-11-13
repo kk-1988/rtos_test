@@ -103,8 +103,8 @@ __asm prvStartFirstTask( void )
 
 __asm void xPortPendSVHandler( void )
 {
-	extern pxCurrentTCB;
-	extern vTaskSwitchContext;
+	extern pxCurrentTCB;					//外部变量
+	extern vTaskSwitchContext;		//外部函数
 	
 	PRESERVE8
 	
@@ -129,5 +129,7 @@ __asm void xPortPendSVHandler( void )
 													R3保存的当前激活的任务TCB指针(pxCurrentTCB)地址，函数调用后会用到，因此也要入栈保护 */
 	mov r0, #configMAX_SYSCALL_INTERRUPT_PRIORITY	/* 进入临界段 */
 	msr basepri, r0
+	
+	
 
 }
