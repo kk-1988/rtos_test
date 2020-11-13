@@ -118,5 +118,16 @@ __asm void xPortPendSVHandler( void )
 	mrs r0, psp
 	isb
 	
-	ldr r3, = pxCurrentTCB	/* 加载oxCurrentTCB的地址到r3 */	
+	ldr r3, = pxCurrentTCB	/* 加载pxCurrentTCB的地址到r3 */	
+	ldr r2, [r3]					/* 加载pxCurrentTCB到r2 */
+	
+	stmdb r0!, {r4-r11}		/* 将CPU寄存器r4~r11的值存储到r0指向的地址 */
+	str r0,[r2]						/* 将任务栈的新的栈顶指针存储到当前任务的TCB的第一个成员，即栈顶指针 */
+	
+	stmdb sp!,{r3,r14}		/* 将R13和R14临时压入堆栈，因为即将调用很函数vTaskSwitchContext,
+													调用函数时，返回地址自动保存到R14中，所以一旦调用发生，R14的值会被覆盖，因为需要入栈保护;
+													R3保存的当前激活的任务TCB指针(pxCurrentTCB)地址，函数调用后会用到，因此也要入栈保护 */
+	mov r0, #configMAX_SYSCALL_INTERRUPT_PRIORITY	/* 进入临界段 */
+	msr basepri, r0
+
 }
