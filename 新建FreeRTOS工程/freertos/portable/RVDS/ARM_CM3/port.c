@@ -106,7 +106,7 @@ __asm void xPortPendSVHandler( void )
 	extern pxCurrentTCB;					//外部变量
 	extern vTaskSwitchContext;		//外部函数
 	
-	PRESERVE8
+	PRESERVE8		//8字节对齐
 	
 	/*
 	* 当进入PendSVC Handler时，上一个任务运行的环境即：
