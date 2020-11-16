@@ -129,7 +129,12 @@ __asm void xPortPendSVHandler( void )
 													R3保存的当前激活的任务TCB指针(pxCurrentTCB)地址，函数调用后会用到，因此也要入栈保护 */
 	mov r0, #configMAX_SYSCALL_INTERRUPT_PRIORITY	/* 进入临界段 */
 	msr basepri, r0
-	
+	isb
+	bx r14								/* 异常发生时，R14中保存异常返回标志，包括返回后进入线程模式还是处理器模式、使用
+													PSP堆栈指针还是MSP堆栈指针，当调用bx r14指令后，硬件会知道要从异常返回，
+													然后出栈，这个时候堆栈指针PSP已经指向了新任务堆栈的正确位置，
+													当新任务的运行地址被
+												*/
 	
 
 }
