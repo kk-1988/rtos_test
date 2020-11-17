@@ -131,3 +131,16 @@ void vTaskStartScheduler( void )
 	}
 	
 }
+
+void vTaskSwitchContext( void )
+{
+	/* 两个任务轮流切换 */
+	if( pxCurrentTCB = &Task1TCB)
+	{
+		pxCurrentTCB = &Task2TCB;
+	}
+	else
+	{
+		pxCurrentTCB = &Task1TCB;	
+	}
+}
