@@ -54,6 +54,9 @@ int main(void)
 									  &Task2TCB);								  
 	vListInsert(&pxReadyTasksLists[2], &Task2TCB.xStateListItem);
 	
+	//启动调度器
+	vTaskStartScheduler();
+	
 	for(;;)
 	{
 		/* 啥事都不干 */	
