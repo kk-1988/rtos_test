@@ -42,4 +42,20 @@ typedef unsigned long UBaseType_t;
 	__isb( portSY_FULL_READ_WRITE );	
 }
 
+/* 临界区管理 */
+extern void vPortEnterCritical( void );
+extern void vPortExitCritical( void );
+
+#define portDISABLE_INTERRUPTS()	vPortRaiseBASEPRI()
+#define portENABLE_INTERRUPTS()		vPortSetBASEpri( 0 )
+
+#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortRaiseBasePRI()
+#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)
+
+#define portINLINE __inline
+
+#ifndef portFORCE_INLINE
+	#define portFORCE_INLINE __forceinline
+#endif	
+
 #endif
