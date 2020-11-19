@@ -58,4 +58,9 @@ extern void vPortExitCritical( void );
 	#define portFORCE_INLINE __forceinline
 #endif	
 
+static portFORCE_INLINE void vPortSetBaseSEPRI( uint32_t ulBASEPRI )
+{
+		
+}
+
 #endif
