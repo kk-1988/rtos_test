@@ -49,8 +49,8 @@ extern void vPortExitCritical( void );
 #define portDISABLE_INTERRUPTS()	vPortRaiseBASEPRI()
 #define portENABLE_INTERRUPTS()		vPortSetBASEpri( 0 )
 
-#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortRaiseBasePRI()
-#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)
+#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortRaiseBasePRI()	//带FROM_ISR结尾的函数或者宏定义，它都是在中断中使用的
+#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)	
 
 #define portINLINE __inline
 
@@ -60,7 +60,16 @@ extern void vPortExitCritical( void );
 
 static portFORCE_INLINE void vPortSetBaseSEPRI( uint32_t ulBASEPRI )
 {
-		
+	uint32_t ulNewBASEPRI = configMAX_SYSCALL_INTERRUPT_PRIORITY;
+
+	__asm
+	{
+		/* Set BASEPRI to the max syscall priority to effct a critical
+		section. */
+		msr basepri, ulNewBASEPRI
+		dsb
+		isb	
+	}
 }
 
 #endif
