@@ -58,7 +58,7 @@ extern void vPortExitCritical( void );
 	#define portFORCE_INLINE __forceinline
 #endif	
 
-static portFORCE_INLINE void vPortSetBaseSEPRI( uint32_t ulBASEPRI )
+static portFORCE_INLINE void vPortSetBASEPRI( void )	//不带返回值,不能嵌套
 {
 	uint32_t ulNewBASEPRI = configMAX_SYSCALL_INTERRUPT_PRIORITY;
 
@@ -66,10 +66,27 @@ static portFORCE_INLINE void vPortSetBaseSEPRI( uint32_t ulBASEPRI )
 	{
 		/* Set BASEPRI to the max syscall priority to effct a critical
 		section. */
-		msr basepri, ulNewBASEPRI
+		msr basepri, ulNewBASEPRI	//11,大于11 不能被响应的，小于11则可以被响应
 		dsb
 		isb	
 	}
+}
+
+static portFORCE_INLINE uint32_t vPortSetBASEPRI( void )
+{
+	uint32_t ulReturn, ulNewBASEPRI = configMAX_SYSCALL_INTERRUPT_PRIORITY;
+
+	__asm
+	{
+		/* Set BASEPRI to the max syscall priority to effct a critical
+		section. */
+		mrs ulReturn,basepri		//状态寄存器到通用寄存器的传送指令
+		msr basepri,ulNewBASEPRI	//通用寄存器到状态寄存器的传送指令
+		dsb
+		isb	
+	}
+	
+	return ulReturn;
 }
 
 #endif
