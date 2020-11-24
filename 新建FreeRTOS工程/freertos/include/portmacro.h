@@ -49,8 +49,8 @@ extern void vPortExitCritical( void );
 #define portDISABLE_INTERRUPTS()	vPortRaiseBASEPRI()
 #define portENABLE_INTERRUPTS()		vPortSetBASEpri( 0 )
 
-#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortRaiseBasePRI()	//带FROM_ISR结尾的函数或者宏定义，它都是在中断中使用的
-#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)	
+#define portSET_INTERRUPT_MASK_FROM_ISR()		ulPortRaiseBasePRI()	//带FROM_ISR结尾的函数或者宏定义，它都是在中断中使用的
+#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)		//比如x=5，那么大于5的中断向量号是不会被响应的
 
 #define portINLINE __inline
 
@@ -72,7 +72,7 @@ static portFORCE_INLINE void vPortSetBASEPRI( void )	//不带返回值,不能嵌套
 	}
 }
 
-static portFORCE_INLINE uint32_t vPortSetBASEPRI( void )
+static portFORCE_INLINE uint32_t vPortSetBASEPRI( void )	//可以嵌套,可以在中断中使用
 {
 	uint32_t ulReturn, ulNewBASEPRI = configMAX_SYSCALL_INTERRUPT_PRIORITY;
 
@@ -80,13 +80,23 @@ static portFORCE_INLINE uint32_t vPortSetBASEPRI( void )
 	{
 		/* Set BASEPRI to the max syscall priority to effct a critical
 		section. */
-		mrs ulReturn,basepri		//状态寄存器到通用寄存器的传送指令
-		msr basepri,ulNewBASEPRI	//通用寄存器到状态寄存器的传送指令
+		mrs ulReturn,basepri		//状态寄存器到通用寄存器的传送指令(basepri的值保存在ulReturn中)
+		msr basepri,ulNewBASEPRI	//通用寄存器到状态寄存器的传送指令(再设置basepri的值)
 		dsb
 		isb	
 	}
 	
 	return ulReturn;
+}
+
+static portFORCE_INLINE void vPortSetBASEPRI( uint32_t ulBASEPRI )
+{
+	__asm
+	{
+		/* Barrier instructions are not used as the function is only used to 
+			lower the BASEPRI value. */
+		msr basepri, ulBASEPRI			//basepri若设置为0，则不关闭任何中断(开中断)
+	}
 }
 
 #endif
