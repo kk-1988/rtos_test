@@ -100,8 +100,8 @@ static portFORCE_INLINE void vPortSetBASEPRI( uint32_t ulBASEPRI )
 }
 
 /*
-* ulPortRaiseBASEPRI	//11,返回的是0
-* 
+* 1.ulPortRaiseBASEPRI	//11,返回的是0
+* 2.ulPortRaiseBASEPRI	//5,返回的是11(之前basepri的值)
 * 
 */
 
