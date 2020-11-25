@@ -99,4 +99,11 @@ static portFORCE_INLINE void vPortSetBASEPRI( uint32_t ulBASEPRI )
 	}
 }
 
+/*
+* ulPortRaiseBASEPRI	//11,·µ»ØµÄÊÇ0
+* 
+* 
+*/
+
+
 #endif
