@@ -100,9 +100,13 @@ static portFORCE_INLINE void vPortSetBASEPRI( uint32_t ulBASEPRI )
 }
 
 /*
-* 1.ulPortRaiseBASEPRI	//11,返回的是0
-* 2.ulPortRaiseBASEPRI	//5,返回的是11(之前basepri的值)
+* 关中断
+* 1.ulPortRaiseBASEPRI	//11,返回的是0，5，6，7，8会响应
+* 2.ulPortRaiseBASEPRI	//5,返回的是11(之前basepri的值)，5，6，7，8不会被响应
 * 
+* 开中断
+* 3.ulPortRaiseBASEPRI(11)	//此时basepri会设置成11
+* 4.vPortSetBASEPRI(0)		//所有中断都会被响应
 */
 
 
