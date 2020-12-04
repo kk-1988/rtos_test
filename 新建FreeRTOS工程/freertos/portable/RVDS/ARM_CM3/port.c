@@ -2,6 +2,13 @@
 #include "task.h"
 #include "ARMCM3.h"
 
+static UBaseType_t uxCriticalNesting = 0xaaaaaaaa;
+
+/*
+* 宏定义
+*/
+#define portINITIAL_XPSR	( 0x01000000 )
+#define portSTART_ADDRESS_MASK ( ( StackType_t ) 0xfffffffeUL )
 
 /*
 * 参考资料《STM32F10XX Cortex-M3 programming manual》4.4.3，百度搜索“PM056”即可找到这个文档
