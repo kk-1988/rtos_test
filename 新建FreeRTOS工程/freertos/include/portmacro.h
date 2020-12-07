@@ -49,6 +49,9 @@ extern void vPortExitCritical( void );
 #define portDISABLE_INTERRUPTS()	vPortRaiseBASEPRI()
 #define portENABLE_INTERRUPTS()		vPortSetBASEpri( 0 )
 
+#define potENTER_CRITICAL()		vPortEnterCritical()
+#define portDISABLE_CRITICAL()	vPortExitCritical()
+
 #define portSET_INTERRUPT_MASK_FROM_ISR()		ulPortRaiseBasePRI()	//带FROM_ISR结尾的函数或者宏定义，它都是在中断中使用的
 #define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)		//比如x=5，那么大于5的中断向量号是不会被响应的
 
