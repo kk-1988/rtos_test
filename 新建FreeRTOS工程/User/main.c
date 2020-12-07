@@ -98,3 +98,6 @@ void Task2_Entry(void *p_arg)
 		taskYIELD();
 	}
 }
+
+StackType_t IdleTaskStack[configMINIMAL_STACK_SIZE];
+
