@@ -8,7 +8,7 @@
 
 #define configKERNEL_INTERRUPT_PRIORITY		(255)		/* 高四位有效，即等于0xff,或者是15 */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY	(191)	/* 高四位有效，即等于0xb0,或者是11 */
-#define configMINIMAL_STACK_SIZE	( ( unsigned short )128 )	/* 空闲任务最小的栈大小 */
+#define configMINIMAL_STACK_SIZE	( ( unsigned short )128 )	/* 空闲任务最小的栈大小,单位是字,不是字节 */
 
 
 #define xPortPendSVHandler	PendSV_Handler
