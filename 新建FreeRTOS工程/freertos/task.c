@@ -144,3 +144,14 @@ void vTaskSwitchContext( void )
 		pxCurrentTCB = &Task1TCB;	
 	}
 }
+
+static portTASK_FUNCTION( prvIdleTask, pvParameters )
+{
+	/* 防止编译器的警告 */
+	( void )pvParameters;
+	
+	for(;;)
+	{
+		/* 空闲任务暂时什么都不做 */	
+	}
+}
