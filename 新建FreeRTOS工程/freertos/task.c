@@ -117,6 +117,16 @@ extern TCB_t Task1TCB;
 extern TCB_t Task2TCB;
 void vTaskStartScheduler( void )
 {
+	/*=============================================创建空闲任务start==========*/
+	TCB_t *pxIdleTaskTCBBuffer = NULL;	/* 用于指向空闲任务控制块 */
+	StackType_t *pxIdleTaskStackBuffer = NULL;	/* 用于空闲任务栈起始地址 */
+	uint32_t ulIdleTaskStackSize;
+	
+	/* 获取空闲任务的内存：任务栈和任务TCB */
+	vApplicationGetIdleTaskMemory( &pxIdleTaskTCBBuffer,
+								   &pxIdleTaskStackBuffer,
+								   &ulIdleTaskStackSize );
+	
 	/* 手动指定第一个运行的任务，
 	 * pxCurrentTCB为一个全局变量,
 	 * 指向当前运行的任务。
