@@ -156,6 +156,7 @@ void vTaskSwitchContext( void )
 }
 
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
+
 static portTASK_FUNCTION( prvIdleTask, pvParameters )
 {
 	/* 防止编译器的警告 */
