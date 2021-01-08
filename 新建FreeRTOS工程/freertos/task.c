@@ -115,6 +115,11 @@ void prvInitialiseTaskLists( void )
 
 extern TCB_t Task1TCB;
 extern TCB_t Task2TCB;
+
+extern void vApplicationGetIdleTaskMemory( TCB_t **ppxIdleTaskTCBBuffer,
+									StackType_t **ppxIdleTaskStackBuffer,
+									uint32_t *pulIdleTaskStackSize );
+
 void vTaskStartScheduler( void )
 {
 	/*=============================================创建空闲任务start==========*/
