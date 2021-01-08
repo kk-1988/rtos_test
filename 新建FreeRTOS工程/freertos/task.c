@@ -116,6 +116,17 @@ void prvInitialiseTaskLists( void )
 extern TCB_t Task1TCB;
 extern TCB_t Task2TCB;
 
+static portTASK_FUNCTION( prvIdleTask, pvParameters )
+{
+	/* 防止编译器的警告 */
+	( void )pvParameters;
+	
+	for(;;)
+	{
+		/* 空闲任务暂时什么都不做 */	
+	}
+}
+
 extern void vApplicationGetIdleTaskMemory( TCB_t **ppxIdleTaskTCBBuffer,
 									StackType_t **ppxIdleTaskStackBuffer,
 									uint32_t *pulIdleTaskStackSize );
@@ -161,14 +172,3 @@ void vTaskSwitchContext( void )
 }
 
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
-
-static portTASK_FUNCTION( prvIdleTask, pvParameters )
-{
-	/* 防止编译器的警告 */
-	( void )pvParameters;
-	
-	for(;;)
-	{
-		/* 空闲任务暂时什么都不做 */	
-	}
-}
