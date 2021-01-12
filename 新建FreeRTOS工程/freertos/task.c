@@ -158,16 +158,60 @@ void vTaskStartScheduler( void )
 	
 }
 
+//void vTaskSwitchContext( void )
+//{
+	/* 两个任务轮流切换 */
+//	if( pxCurrentTCB = &Task1TCB)
+//	{
+//		pxCurrentTCB = &Task2TCB;
+//	}
+//	else
+//	{
+//		pxCurrentTCB = &Task1TCB;	
+//	}
+//}
+
 void vTaskSwitchContext( void )
 {
-	/* 两个任务轮流切换 */
-	if( pxCurrentTCB = &Task1TCB)
+	/* 如果当前线程是空闲线程，那么就去尝试执行线程1或者线程2，
+		看看他们的延时时间是否结束，如果线程的延时时间均没有到期，
+		那就返回继续执行空闲线程 */
+	if( pxCurrentTCB == &IdleTaskTCB )
 	{
-		pxCurrentTCB = &Task2TCB;
+		if(Task1TCB.xTicksToDelay == 0)
+		{
+			pxCurrentTCB = &Task1TCB;
+		}
+		else if(Task2TCB.xTicksToDelay == 0)
+		{
+			pxCurrentTCB = &Task2TCB;
+		}
+		else
+		{
+			return;		/* 线程延时均没有到期则返回 */
+		}
 	}
 	else
 	{
-		pxCurrentTCB = &Task1TCB;	
+		/* 如果当前线程是线程1或者线程2，检查下另外一个线程，
+		* 如果另外的线程不在延时中，就切换到该线程，否则，判断下
+		* 当前线程是否应该进入延时状态，如果是的话，就切换到空闲线程。否则就不进行任何切换
+		*/
+		if(pxCurrentTCB == &Task1TCB)
+		{
+			if(Task2TCB.xTicksToDelay == 0)
+			{
+				pxCurrentTCB = &Task2TCB;
+			}
+			else if(pxCurrentTCB->xTicksToDelay != 0)
+			{
+				pxCurrentTCB = &IdleTaskTCB;
+			}
+			else
+			{
+				return;	/* 返回，不进行切换，因为两个线程都处于延时中 */
+			}
+		}
 	}
 }
 
