@@ -200,3 +200,18 @@ void vPortExitCritical( void )
 	/* 退出临界段 */
 	taskEXIT_CRITICAL();
 } 
+
+/*
+* SysTick中断服务函数
+*/
+void xPortSysTickHandler( void )
+{
+	/* 关中断 */
+	vPortRaiseBASEPRI();
+
+	/* 更新系统时基 */
+	xTaskIncrementTick();
+
+	/* 开中断 */
+	vPortClearBASEPRIFromISR();
+}
