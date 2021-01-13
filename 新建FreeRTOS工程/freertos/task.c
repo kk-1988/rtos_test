@@ -171,6 +171,20 @@ void vTaskStartScheduler( void )
 //	}
 //}
 
+void vTaskDelay( const TickType_t xTicksToDelay )
+{
+	TCB_t *pxTCB = NULL;
+	
+	/* 获取当前任务的TCB */
+	pxTCB = pxCurrentTCB;
+	
+	/* 设置延时时间 */
+	pxTCB->xTicksToDelay = xTicksToDelay;
+	
+	/* 任务切换 */
+	taskYIELD();
+}
+
 void vTaskSwitchContext( void )
 {
 	/* 如果当前线程是空闲线程，那么就去尝试执行线程1或者线程2，
