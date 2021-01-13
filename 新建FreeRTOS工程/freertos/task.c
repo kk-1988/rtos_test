@@ -212,6 +212,21 @@ void vTaskSwitchContext( void )
 				return;	/* 返回，不进行切换，因为两个线程都处于延时中 */
 			}
 		}
+		else if(pxCurrentTCB == &Task2TCB)
+		{
+			if(Task1TCB.xTicksToDelay == 0)
+			{
+				pxCurrentTCB  = &Task1TCB;
+			}
+			else if(pxCurrentTCB->xTicksToDelay != 0)
+			{
+				pxCurrentTCB = &IdleTaskTCB;
+			}
+			else
+			{
+				return;	/* 返回，不进行切换，因为两个线程都处于延时中 */
+			}
+		}
 	}
 }
 
