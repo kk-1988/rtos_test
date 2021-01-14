@@ -5,6 +5,8 @@ List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
 
 TCB_t * volatile pxCurrentTCB = NULL;
 
+static volatile TickType_t xTickCount	= ( TickType_t ) 0U;
+
 /*
 **************************************************
 *					函数声明
@@ -242,6 +244,28 @@ void vTaskSwitchContext( void )
 			}
 		}
 	}
+}
+
+void xTaskIncrementTick( void )
+{
+	TCB_t *pxTCB = NULL;
+	BaseType_t i = 0;
+	
+	/* 更新系统时基计数器xTickCount,xTickCount是一个在port.c中定义的全局变量 */
+	const TickType_t xConstTickCount = xTickCount + 1;
+	xTickCount = xConstTickCount;
+	
+	/* 扫描就绪列表中所有线程的xTicksToDelay,如果不为0,则减1 */
+	for(i = 0; i < configMAX_PRIORITIES; i++)
+	{
+		pxTCB = ( TCB_t * )listGET_OWNER_OF_HEAD_ENTRY( (&pxReadyTasksLists[i]) );
+		if(pxTCB->xTicksToDelay > 0)
+		{
+			pxTCB->xTicksToDelay--;
+		}
+	}
+	
+	portYIELD();
 }
 
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
