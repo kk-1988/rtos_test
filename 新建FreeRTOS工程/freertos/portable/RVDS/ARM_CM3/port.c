@@ -23,6 +23,9 @@ static UBaseType_t uxCriticalNesting = 0xaaaaaaaa;
 #define portNVIC_PENDSV_PRI			( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 16ul )
 #define portNVIC_SYSTICK_PRI	 	( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 24ul )
 
+/* SysTick 配置寄存器(for stm32f207zgt6) */
+#define portNVIC_SYSTICK_CTRL_REG		( * ( ( volatile uint32_t * ) 0xe000e010 ) )
+#define portNVIC_SYSTICK_LOAD_REG	 	( * ( ( volatile uint32_t * ) 0xe000e014 ) )
 
 #ifndef configSYSTICK_CLOCK_HZ
 	#define configSYSTICK_CLOCK_HZ	configCPU_CLOCK_HZ
