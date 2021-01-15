@@ -23,6 +23,15 @@ static UBaseType_t uxCriticalNesting = 0xaaaaaaaa;
 #define portNVIC_PENDSV_PRI			( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 16ul )
 #define portNVIC_SYSTICK_PRI	 	( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 24ul )
 
+
+#ifndef configSYSTICK_CLOCK_HZ
+	#define configSYSTICK_CLOCK_HZ	configCPU_CLOCK_HZ
+	/* 确保SysTick的时钟和内核时钟一致 */
+	#define portNVIC_SYSTICK_CLK_BIT	(	1UL << 2UL )
+#else
+	#define portNVIC_SYSTICK_CLK_BIT	( 0 )
+#endif
+
 /*
 *************************************************************
 *												函数声明
@@ -200,6 +209,22 @@ void vPortExitCritical( void )
 	/* 退出临界段 */
 	taskEXIT_CRITICAL();
 } 
+
+/*
+* 初始化SysTick
+*/
+void vPortSetupTimerInterrupt( void )
+{
+	/* 设置重装载寄存器的值 */
+	portNVIC_SYSTICK_LOAD_REG = (configSYSTICK_CLOCK_HZ / configTICK_RATE_HZ ) - 1UL;
+	
+	/* 设置系统定时器的时钟等于内核时钟
+	*  使能SysTick定时器中断
+	*  使能SysTick定时器 */
+	portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT |
+																portNVIC_SYSTICK_INT_BIT |
+																portNVIC_SYSTICK_ENABLE_BIT	);
+}
 
 /*
 * SysTick中断服务函数
