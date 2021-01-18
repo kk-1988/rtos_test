@@ -43,6 +43,7 @@ static UBaseType_t uxCriticalNesting = 0xaaaaaaaa;
 void prvStartFirstTask( void );
 void xPortSVCHandler( void );
 void xPortPendSVHandler( void );
+void vPortSetupTimerInterrupt( void );
 
 /*
 *************************************************************
@@ -83,6 +84,8 @@ BaseType_t xPortStartScheduler( void )
 	portNVIC_SYSPRI2_REG |= portNVIC_PENDSV_PRI;
 	portNVIC_SYSPRI2_REG |= PORTNVIC_YSSTICK_PRI;
 	
+	/* 初始化SysTick时钟 */
+	vPortSetupTimerInterrupt();
 	/* 启动第一个任务，不再返回 */
 	prvStartFirstTask();
 	

@@ -21,6 +21,8 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
 void prvInitialiseTaskLists( void );
 void vTaskStartScheduler( void );
 void vTaskSwitchContext( void );
-void xTaskIncrementTick( void )；
+							
+void vTaskDelay( const TickType_t xTicksToDelay );							
+void xTaskIncrementTick( void );
 
 #endif	/* INC_TASK_H */

@@ -11,7 +11,7 @@
 #define configMINIMAL_STACK_SIZE	( ( unsigned short )128 )	/* 空闲任务最小的栈大小,单位是字,不是字节 */
 	
 #define configCPU_CLOCK_HZ		( ( unsigned long ) 25000000 )
-#define configTICK_RATE_HZ		( ( TickType_t ) 100 )
+#define configTICK_RATE_HZ		( ( TickType_t ) 100 )		//每秒钟中断多少次，所以是10ms一次中断
 
 #define xPortPendSVHandler	PendSV_Handler
 #define xPortSysTickHandler	SysTick_Handler
