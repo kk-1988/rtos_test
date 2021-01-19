@@ -80,3 +80,14 @@ void Task2_Entry(void *p_arg)
 		vTaskDelay(2);
 	}
 }
+
+StatckType_t IdleTaskStack[configMINIMAL_STACK_SIZE];
+TCB_t IdleTaskTCB;
+void vApplicationGetIdleTaskMemory( TCB_t **ppxIdleTaskTCBBuffer,
+																		StackType_t **ppxIdleTaskStackBuffer,
+																	uint32_t *pulIdleStackSize )
+{
+	*ppxIdleTaskTCBBuffer = &IdleTaskTCB;
+	*ppxIdleTaskStackBuffer = IdleTaskStack;
+	*puxIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+}
