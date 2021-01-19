@@ -25,6 +25,19 @@ typedef unsigned long UBaseType_t;
 	#define portMAX_DELAY( TickType_t )0xffffffffUL
 #endif
 
+#ifndef configUSE_PORT_OPTIMISED_TASK_SELECTION
+	#define configUSE_PORT_OPTIMISED_TASK_SELECTION
+#endif
+
+#if configUSE_PORT_OPTIMISED_TASK_SELECTION == 1
+	
+	/*  */
+	#if( configMAX_PRIORITIES > 32 )
+		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1,
+	#endif
+
+#endif
+
 /*
 * 中断控制状态寄存器：0xe000ed04
 * Bit 28 PENDSVSET：PendSV 悬起位
