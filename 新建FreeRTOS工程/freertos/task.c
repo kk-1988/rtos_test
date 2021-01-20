@@ -25,6 +25,7 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,		/* 任务入口 */
 							const char * const pcName,			/* 任务名称，字符串形式 */
 							const uint32_t ulStackDepth,		/* 任务栈大小，单位为字 */
 							void * const pvParameters,			/* 任务形参 */
+							UBaseType_t  uxPriority,				/* 任务优先级，数值越大，优先级越高 */
 							StackType_t * const puxStackBuffer,	/* 任务栈起始地址 */
 							TCB_t * const pxTaskBuffer )		/* 任务控制块指针 */
 {
