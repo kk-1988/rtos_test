@@ -13,8 +13,8 @@
 #define portSTACK_TYPE	uint32_t
 #define	portBASE_TYPE	long
 	
-typedef portSTACK_TYPE StackType_t；
-typedef long BaseType_t
+typedef portSTACK_TYPE StackType_t;
+typedef long BaseType_t;
 typedef unsigned long UBaseType_t;
 
 #if( configUSE_16_BIT_TICKS == 1)
@@ -33,10 +33,16 @@ typedef unsigned long UBaseType_t;
 	
 	/*  */
 	#if( configMAX_PRIORITIES > 32 )
-		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1,
+		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1 when configMAX_PRIORITIES is less than or equal to 32. It is very rare that a system requires
 	#endif
-
-#endif
+	
+	/* 根据优先级设置/清除优先级位图中相应的位 */
+	#define portRECORD_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) |= ( 1UL << ( uxPriority ) )
+	#define portRESET_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) &= ~( 1UL << ( uxPriority ) )
+	
+	/*-----------------------------------------------*/
+	#define portGET_HIGHEST_PRIORITY( uxTopPriority, uxReadyPriorities ) uxTopPriority = ( 31UL - ( uint32_t ) __clz( (uxReadyPriorities ) ) )
+#endif /* taskRECORD_READY_PRIORITY */
 
 /*
 * 中断控制状态寄存器：0xe000ed04
