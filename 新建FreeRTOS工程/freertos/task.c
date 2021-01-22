@@ -6,6 +6,7 @@ List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
 TCB_t * volatile pxCurrentTCB = NULL;
 
 static volatile TickType_t xTickCount	= ( TickType_t ) 0U;
+static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 
 /*
 **************************************************
@@ -17,7 +18,7 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 								const uint32_t ulStackDepth,	/* 任务栈大小，单位为字 */
 								void * const pvParameters,		/* 任务形参 */
 								TaskHandle_t * const pxCreatedTask,	/* 任务句柄 */
-								TCB_t *pxNewTCB )				/* 任务控制块指针 */
+								TCB_t *pxNewTCB );				/* 任务控制块指针 */
 
 #if( configSUPPORT_STATIC_ALLOCATION == 1 )
 	
