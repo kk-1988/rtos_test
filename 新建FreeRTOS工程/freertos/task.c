@@ -8,9 +8,24 @@ TCB_t * volatile pxCurrentTCB = NULL;
 static volatile TickType_t xTickCount	= ( TickType_t ) 0U;
 static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 
+
 /*
 **************************************************
-*					函数声明
+* 										宏定义
+**************************************************
+*/
+/* 将任务添加到就绪列表 */
+#define prvAddTaskToReadyList( pxTCB )
+	taskRECORD_READY_PRIORITY( ( pxTCB )->uxPriority );
+	vListInsertEnd( &( pxReadyTaskLists[ ( pxTCB )->uxPriority ], &( ( pxTCB )->xStateListItem ) );	\
+	
+	
+	)
+
+
+/*
+**************************************************
+*											函数声明
 **************************************************
 */
 static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */

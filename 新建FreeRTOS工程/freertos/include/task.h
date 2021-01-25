@@ -3,6 +3,7 @@
 
 #include "list.h"
 
+#define tskIDLE_PRIORITY		( ( UBaseType_t ) 0U )
 #define taskYIELD()	portYIELD()
 
 /* 任务句柄 */
