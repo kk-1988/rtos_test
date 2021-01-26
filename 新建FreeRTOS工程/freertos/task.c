@@ -19,6 +19,33 @@ static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 	taskRECORD_READY_PRIORITY( ( pxTCB )->uxPriority );
 	vListInsertEnd( &( pxReadyTaskLists[ ( pxTCB )->uxPriority ], &( ( pxTCB )->xStateListItem ) );	\
 	
+/* 查找最高优先级的就绪任务：通用方法 */
+#if ( configUSE_PORT_OPTIMISED_TASK_SELECTION == 0 )
+	/* uxTopReadyPriority 存的是就绪任务的最高优先级 */
+	#define taskRECORD_READY_PRIORITY( uxPriority )					\
+	{																								\
+		if( ( uxPriority ) > uxTopReadyPriority )							\
+		{																							\
+			uxTopReadyPriority = ( uxPriority );
+		}																							\
+	}/* taskRECORD_READY_PRIORITY */																							\
+	
+	#define taskSELECT_HIGHEST_PRIORITY_TASK()
+	{																								\	
+		UBaseType_t uxTopPriority = uxTopReadyPriority；
+		
+		/* 寻找包含就绪任务的最高优先级的队列 */
+		while( listLIST_IS_EMPTY( &( pxReadyTasksLists[ uxTopPriority ] ) ) )
+		{																							\
+			--uxTopPriority;																\
+		}																							\																							\
+	
+	/* 获取优先级最高的就绪任务的TCB，然后更新到pxCurrentTCB */
+	listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) );		\
+	/* 更新uxTopReadyPriority */
+	uxTopReadyPriority = uxTopPriority;
+	}	/* taskSELECT_HIGHEST_PRIORITY_TASK */
+	
 	
 	)
 
