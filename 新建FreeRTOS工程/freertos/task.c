@@ -46,6 +46,29 @@ static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 	uxTopReadyPriority = uxTopPriority;
 	}	/* taskSELECT_HIGHEST_PRIORITY_TASK */
 	
+	/*-----------------------------------------------*/
+	
+	/* 这两个宏定义只有在选择优化方法时采用，这里定义位空 */
+	#define taskRESET_READY_PRIORITY( uxPriority )
+	#define portRESET_READY_PRIORITY( uxPriority, uxTopReadyPriority )
+
+/* 查找最高优先级的就绪任务：根据处理器架构优化后的方法 */
+#else	/* configUSE_PORT_OPTIMISED_TASK_SELECTION */	
+	#define taskRECORD_READY_PRIORITY( uxPriority ) portRECORD_READY_PRIORITY( uxPriority, uxTopReadyPriority )
+	
+	/*-----------------------------------------------------*/
+	
+	#define taskSELECT_HIGHEST_PRIORITY_TASK()
+	{
+		UBaseType_t uxTopPriority;
+	
+		/* 寻找最高优先级 */
+		portGET_HIGHEST_PRIORITY( uxTopPriority, uxTopReadyPriority );
+		/* 获取优先级最高的就绪任务的TCB，然后更新到pxCurrentTCB */
+		listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) );
+	}/* taskSELECT_HIGHEST_PRIORITY_TASK() */
+	
+	/*--------------------------------------------------*/
 	
 	)
 
