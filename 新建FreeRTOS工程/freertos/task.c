@@ -68,8 +68,6 @@ static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 		listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) );
 	}/* taskSELECT_HIGHEST_PRIORITY_TASK() */
 	
-	/*--------------------------------------------------*/
-	
 	)
 
 
