@@ -159,6 +159,13 @@ static void prvInitialiseNewTask(	TaskFunction_t pxTaskCode,	/* 任务入口 */
 	/* 设置xStateListItem节点的拥有者 */
 	listSET_LIST_ITEM_OWNER( &( pxNewTCB->xStateListItem ), pxNewTCB ); 
 	
+	/* 初始化优先级 */
+	if( uxPriority >= ( UBaseType_t ) configMAX_PRIORITIES )
+	{
+		uxPriority = ( UBaseType_t ) configMAX_PRIORITIES - ( UBaseType_t )1U;
+	}
+	pxNewTCB->uxPriority = uxPriority;
+	
 	/* 初始化任务栈 */
 	pxNewTCB->pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters );
 	
