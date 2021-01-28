@@ -106,6 +106,7 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,		/* 任务入口 */
 								pcName,			/* 任务名称，字符串形式 */
 								ulStackDepth,	/* 任务栈大小，单位为字 */
 								pvParameters,	/* 任务形参 */
+								uxPriority,		/* 任务优先级 */
 								&xReturn,		/* 任务句柄 */
 								pxNewTCB);		/* 任务栈起始地址 */
 	}
