@@ -69,7 +69,44 @@ static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 	}/* taskSELECT_HIGHEST_PRIORITY_TASK() */
 	
 	)
+#endif /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
 
+static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
+{
+	/* 进入临界段 */
+	taskENTER_CRITICAL();
+	{
+			/* 全局任务计数器加一操作 */
+			uxCurrentNumberOfTasks++;
+		
+			/* 如果pxCurrentTCB为空，则将pxCurrentTCB指向新创建的任务 */
+			if( pxCurrentTCB == NULL )
+			{
+					pxCurrentTCB = pxNewTCB;
+				
+				/* 如果是第一次创建任务，则需要初始化任务相关的列表 */
+				if( uxCurrentNumberOfTasks == ( UBaseType_t ) 1)
+				{
+						/* 初始化任务相关的列表 */
+						prvInitialiseTaskLists();
+				}
+			}
+			else	/* 如果pxCurrentTCB不为空，则根据任务的优先级将pxCurrentTCB指向最高优先任务的TCB */
+			{
+				if( pxCurrentTCB->uxPriority <= pxNewTCB->uxPriority )
+				{
+					pxCurrentTCB = pxNewTCB;
+				}
+			}
+			
+			uxTaskNumber++;
+			
+			/* 将任务添加到就绪列表 */
+			prvAddTaskToReadyList( pxNewTCB );
+		}
+		/* 退出临界段 */
+		taskEXIT_CRITICAL();
+}
 
 /*
 **************************************************
