@@ -251,6 +251,17 @@ void vTaskStartScheduler( void )
 	StackType_t *pxIdleTaskStackBuffer = NULL;	/* 用于空闲任务栈起始地址 */
 	uint32_t ulIdleTaskStackSize;
 	
+	xIdleTaskHandle = xTaskCreateStatic( (TaskFunction_t)prvIdleTask,			/* 任务入口 */
+																			 (char *)"IDLE"										/* 任务名称，字符串形式*/
+																			 (uint32_t)ulIdleTaskStackSize,		/* 任务栈大小，单位为字 */
+																			 (void *) NULL,										/* 任务形参 */
+																			 (UBaseType_t) taskIDLE_PRIORITY,	/* 任务优先级，数值越大，优先级越高 */
+																			 (StackType_t *)pxIdleTaskStackBuffer,	/* 任务栈起始地址 */
+																			 (TCB_t *)pxIdleTaskTCBBuffer );	/* 任务控制块 */
+																			 
+	/* 将任务添加到就绪列表 */
+																			 
+	
 	/* 获取空闲任务的内存：任务栈和任务TCB */
 	vApplicationGetIdleTaskMemory( &pxIdleTaskTCBBuffer,
 								   &pxIdleTaskStackBuffer,
