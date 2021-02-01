@@ -255,7 +255,7 @@ void vTaskStartScheduler( void )
 																			 (char *)"IDLE"										/* 任务名称，字符串形式*/
 																			 (uint32_t)ulIdleTaskStackSize,		/* 任务栈大小，单位为字 */
 																			 (void *) NULL,										/* 任务形参 */
-																			 (UBaseType_t) taskIDLE_PRIORITY,	/* 任务优先级，数值越大，优先级越高 */
+																			 (UBaseType_t) tskIDLE_PRIORITY,	/* 任务优先级，数值越大，优先级越高 */
 																			 (StackType_t *)pxIdleTaskStackBuffer,	/* 任务栈起始地址 */
 																			 (TCB_t *)pxIdleTaskTCBBuffer );	/* 任务控制块 */
 																			 
