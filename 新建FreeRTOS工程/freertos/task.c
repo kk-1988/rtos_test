@@ -384,6 +384,12 @@ void xTaskIncrementTick( void )
 		if(pxTCB->xTicksToDelay > 0)
 		{
 			pxTCB->xTicksToDelay--;
+			
+			/* 延时时间到，将任务就绪 */
+			if( pxTCB->xTicksToDelay == 0 )
+			{
+				taskRECORD_READY_PRIORITY( pxTCB->uxPriority );
+			}
 		}
 	}
 	
