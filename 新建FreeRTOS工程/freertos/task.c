@@ -1,7 +1,18 @@
+#include "FreeRTOS.h"
 #include "task.h"
 
 /* 任务就绪列表 */
 List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
+
+static TaskHandle_t xIdleTaskHandle		= NULL;
+
+static List_t xDelayedTaskList1;
+static List_t xDelayedTaskList2;
+static List_t * volatile pxDelayedTaskList;
+static List_t * volatile pxOverflowDelayedTaskList;
+
+static volatile UBaseType_t uxCurrentNumberOfTasks = ( UBaseType_t ) 0U;
+static UBaseType_t uxTaskNumber		= ( UBaseType_t ) 0U;
 
 TCB_t * volatile pxCurrentTCB = NULL;
 
