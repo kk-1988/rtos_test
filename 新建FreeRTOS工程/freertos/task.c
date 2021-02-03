@@ -410,4 +410,15 @@ void xTaskIncrementTick( void )
 	portYIELD();
 }
 
+static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait )
+{
+	TickType_t xTimeToWake;
+	
+	/* 获取系统时基计数器xTickCount的值 */
+	const TickType_t xConstTickCount = xTickCount;
+	
+	/* 将任务从就绪列表中移除 */
+	
+}
+
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
