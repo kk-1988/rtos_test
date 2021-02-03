@@ -11,6 +11,9 @@ static List_t xDelayedTaskList2;
 static List_t * volatile pxDelayedTaskList;
 static List_t * volatile pxOverflowDelayedTaskList;
 
+static volatile TickType_t xNextTaskUnblockTime = ( TickType_t ) 0U;
+static volatile BaseType_t xNumOfOverflows		= ( BaseType_t ) 0;
+
 static volatile UBaseType_t uxCurrentNumberOfTasks = ( UBaseType_t ) 0U;
 static UBaseType_t uxTaskNumber		= ( UBaseType_t ) 0U;
 
