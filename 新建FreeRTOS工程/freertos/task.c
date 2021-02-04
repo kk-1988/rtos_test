@@ -418,7 +418,27 @@ static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait )
 	const TickType_t xConstTickCount = xTickCount;
 	
 	/* 将任务从就绪列表中移除 */
+	if( uxListRemove( &( pxCurrentTCB->xStateListItem ) ) == (UBaseType_t )0 )
+	{
+		/* 将任务在优先级位图中对应的位清除 */
+		portRESET_READY_PRIORITY( pxCurrentTCB->uxPriority, uxTopReadyPriority );
+	}
 	
+	/* 计算延时到期时，系统时基计数器xTickCount的值是多少 */
+	xTimeToWake = xConstTickCount + xTickToWait;
+	
+	/* 将延时到期的值设置为节点的排序值 */
+	listSET_LIST_ITEM_VALUE( &( pxCurrentTCB->xStateListItem ),xTimeToWake );		//设置value
+	
+	/* 溢出 */
+	if( xTimeToWake < xCountTickCount )
+	{
+		vListInser( pxOverflowDelayedTaskList, &( pxCurrentTCB->xStateListItem ));
+	}
+	else	/* 没有溢出 */
+	{
+		vListInsert( );
+	}
 }
 
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
