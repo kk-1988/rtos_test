@@ -85,6 +85,20 @@ static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
 	)
 #endif /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
 
+/*
+* 当系统时基计数器溢出的时候，延时列表pxDelayedTaskList 和
+* pxOverflowDelayedTaskList 要互相切换
+*/
+#define taskSWITCH_DELAYED_LISTS()\
+{\
+	List_t *pxTemp;\
+	pxTemp = pxDelayedTaskList;\
+	pxDelayedTaskList = pxOverflowDelayedTaskList;\
+	pxOverflowDelayedTaskList = pxTemp;\
+	xNumOfOverflows++;\
+	prvResetNextTaskUnblockTime();\
+}
+
 static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 {
 	/* 进入临界段 */
